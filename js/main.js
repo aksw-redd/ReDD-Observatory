@@ -1,3 +1,7 @@
+String.prototype.charPlus = function(){
+    return String.fromCharCode( this.charCodeAt(0) + 1 );
+}
+
 $(document).ready(function(){
     var serverData = null;
     var req_country = null;
@@ -8,9 +12,9 @@ $(document).ready(function(){
         //var data_table = $("#result-table");
         if( data_table.length < 0 ) return;
         
-        var cols = [];
-        var rows = [];
-        var data = {};
+        var cols = []; // countries
+        var rows = []; // columns
+        var data = {}; // data
         
         $(".col", data_table).each(function(index,item){
             cols.push( $(item).text() );
@@ -22,6 +26,42 @@ $(document).ready(function(){
             if( typeof data[$(item).attr('id')] == 'undefined' ) data[$(item).attr('id')] = [];
             data[$(item).attr('id')].push( $(item).text().replace(/\..+/g,'') );
         });
+        
+        /*
+        google vis
+        */
+        var item, subitem, i = 0, k = 0;
+        var letter = 'a';
+        var gdata = [];
+        for(i = 0; i < rows.length; i++ ){
+            gdata[i] = new google.visualization.DataTable();
+            gdata[i].addColumn('string', '', 'Country');        
+            item = rows[i];
+            gdata[i].addColumn('number', item.text);//, letter );
+            gdata[i].addRows( data[rows[0].id].length );
+            //letter = letter.charPlus();
+        }
+
+        for(i = 0; i < cols.length; i++ ){
+            item = cols[i];
+            for (k = 0; k < rows.length; k++ ){
+                gdata[k].setValue(i, 0, countryCodes[item]);
+                subitem = data[rows[k].id][i];
+                gdata[k].setValue(i, 1, parseFloat(subitem) );
+            }
+        }
+        
+        for(i = 0; i < gdata.length; i++){
+            var divid = $(placeholder).attr('id');
+            $(placeholder).append( $("<br/><div id='googlevis-"+divid+i+"'></div><br/>") );
+
+            var chart = new google.visualization.GeoMap( document.getElementById("googlevis-"+divid+i) );
+            chart.draw(gdata[i], {});
+        }
+        
+        /*
+         * Table vis
+         */
         
         var table = "<table id=\"restab\" style=\"display:block;\" >\
         <caption>Trial vs. Death</caption>\
@@ -54,7 +94,8 @@ $(document).ready(function(){
         table = table.replace("%BODY%", body);
         
         $('body').append( $(table) );
-        $("#restab").visualize().appendTo(placeholder).trigger('visualizeRefresh');
+        $("#restab").visualize({height:200}).appendTo(placeholder).trigger('visualizeRefresh');
+        
         $("#restab").remove();
     };
     

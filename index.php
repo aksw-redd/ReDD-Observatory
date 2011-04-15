@@ -14,9 +14,9 @@ $diseases = getDiseases();
 <title>ReDD Observatory</title>
 <link rel="stylesheet" type="text/css" href="css/visualize.css" /> 
 <link rel="stylesheet" type="text/css" href="css/visualize-light.css" />
-<link rel="stylesheet" type="text/css" href="css/tipTip.css" /> 
-<link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.8.7.custom.css" />	
-<link rel="stylesheet" type="text/css" href="css/tablesorter/style.css" />	
+<link rel="stylesheet" type="text/css" href="css/tipTip.css" />
+<link rel="stylesheet" type="text/css" href="css/blitzer/jquery-ui-1.8.7.custom.css" />
+<link rel="stylesheet" type="text/css" href="css/tablesorter/style.css" />
 <script type="text/javascript" src="js/excanvas.js"></script>
 <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
@@ -24,7 +24,15 @@ $diseases = getDiseases();
 <script type="text/javascript" src="js/visualize.jQuery.js"></script>
 <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 <script type="text/javascript" src="js/jquery.tipTip.minified.js"></script>
+<script type="text/javascript" src="js/codes.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    // init google vis api
+	google.load('visualization', '1', {'packages':['geomap']});
+</script>
+
 </head>
 <body>
 <!-- TEMPLATES FOR DATA -->
