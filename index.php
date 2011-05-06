@@ -202,9 +202,9 @@ $diseases = getDiseases();
     </div>
 </div>
 
-<div class="logo"><a href="http://aksw.org/Projects/GHO2SCOVO?v=kmb"><img src="images/aksw-logo.png" style="max-height:100px;" /></a></div>
+<div class="logo"><img src="images/aksw-logo.png" style="max-height:100px;" /></a></div>
 
-<center><div class="title">ReDD Observatory</div></center>
+<center><div class="title"><a href="http://aksw.org/Projects/ReDDObservatory" target="_blank" style="color:white;">ReDD Observatory</a></div></center>
 <table style="width:100%; margin-left: 0px;" border="0" cellpadding="0" cellspacing="0" id="config">
   <tr>
     <td class="leftbar">

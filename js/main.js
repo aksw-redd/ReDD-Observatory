@@ -8,7 +8,9 @@ $(document).ready(function(){
     var req_disease = null;
 
     // data visualistaion function
-    var drawChart = function(data_table, placeholder){
+    var drawChart = function(data_table, placeholder, map){
+        if(typeof map == "undefined") map = true;
+    
         //var data_table = $("#result-table");
         if( data_table.length < 0 ) return;
         
@@ -30,33 +32,36 @@ $(document).ready(function(){
         /*
         google vis
         */
-        var item, subitem, i = 0, k = 0;
-        var letter = 'a';
-        var gdata = [];
-        for(i = 0; i < rows.length; i++ ){
-            gdata[i] = new google.visualization.DataTable();
-            gdata[i].addColumn('string', '', 'Country');        
-            item = rows[i];
-            gdata[i].addColumn('number', item.text);//, letter );
-            gdata[i].addRows( data[rows[0].id].length );
-            //letter = letter.charPlus();
-        }
-
-        for(i = 0; i < cols.length; i++ ){
-            item = cols[i];
-            for (k = 0; k < rows.length; k++ ){
-                gdata[k].setValue(i, 0, countryCodes[item]);
-                subitem = data[rows[k].id][i];
-                gdata[k].setValue(i, 1, parseFloat(subitem) );
+        console.log(map);
+        if(map){
+            var item, subitem, i = 0, k = 0;
+            var letter = 'a';
+            var gdata = [];
+            for(i = 0; i < rows.length; i++ ){
+                gdata[i] = new google.visualization.DataTable();
+                gdata[i].addColumn('string', '', 'Country');        
+                item = rows[i];
+                gdata[i].addColumn('number', item.text);//, letter );
+                gdata[i].addRows( data[rows[0].id].length );
+                //letter = letter.charPlus();
             }
-        }
-        
-        for(i = 0; i < gdata.length; i++){
-            var divid = $(placeholder).attr('id');
-            $(placeholder).append( $("<br/><div id='googlevis-"+divid+i+"'></div><br/>") );
 
-            var chart = new google.visualization.GeoMap( document.getElementById("googlevis-"+divid+i) );
-            chart.draw(gdata[i], {});
+            for(i = 0; i < cols.length; i++ ){
+                item = cols[i];
+                for (k = 0; k < rows.length; k++ ){
+                    gdata[k].setValue(i, 0, countryCodes[item]);
+                    subitem = data[rows[k].id][i];
+                    gdata[k].setValue(i, 1, parseFloat(subitem) );
+                }
+            }
+            
+            for(i = 0; i < gdata.length; i++){
+                var divid = $(placeholder).attr('id');
+                $(placeholder).append( $("<br/><div id='googlevis-"+divid+i+"'></div><br/>") );
+
+                var chart = new google.visualization.GeoMap( document.getElementById("googlevis-"+divid+i) );
+                chart.draw(gdata[i], {});
+            }
         }
         
         /*
@@ -177,8 +182,8 @@ $(document).ready(function(){
             $("#death-result-table").tablesorter(); 
             $("#daly-result-table").tablesorter(); 
             // draw charts
-            drawChart( $("#death-result-table"), $("#visual-country") );
-            drawChart( $("#daly-result-table"), "#visual-disease" );
+            drawChart( $("#death-result-table"), $("#visual-country"), false );
+            drawChart( $("#daly-result-table"), "#visual-disease", false );
             // tooltip test
         	$(".tooltip").tipTip({defaultPosition:"top"});
         }, 'json'); 
