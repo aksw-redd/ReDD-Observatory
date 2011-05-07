@@ -87,7 +87,7 @@ $diseases = getDiseases();
             <th class="tooltip" title="Number of DALYs for each disease divided by number of DALYs attributable to all diseases">DALYs/Total DALYs</th>
             <th class="tooltip" title="Number of publications for each disease in each country (Weighted)">Number of Publications</th>
             <th class="tooltip" title="Total number of publications for all diseases in each country">Total number of Publications</th>
-            <th class="tooltip" title="Number of publications for each disease in each country divided by total number of publications for all diseases">Publications/Total num$
+            <th class="tooltip" title="Number of publications for each disease in each country divided by total number of publications for all diseases">Publications/Total num</th>
             <th class="row tooltip" title="Publications vs. Death Index" id="col0">Publications vs. Deaths</th>
             <th class="row tooltip" title="Publications vs. DALYs Index" id="col1">Publications vs. DALYs</th>
         </tr>
@@ -105,7 +105,7 @@ $diseases = getDiseases();
                 <td><a href="#" class="link pubs">${pubs}</a></td>
                 <td><a href="#" class="link allpubs">${pubs_all}</a></td>
                 <td>${trials_percent}</td>
-                <td class="data" id="col0">${pubs_incidence}</td>
+                <td class="data" id="col0">${pubs_incedence}</td>
                 <td class="data" id="col1">${pubs_daly}</td>
             </tr>
         {{/each}}
